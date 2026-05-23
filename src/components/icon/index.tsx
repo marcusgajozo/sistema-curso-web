@@ -2,6 +2,7 @@ import type { LucideProps } from 'lucide-react';
 import { Suspense } from 'react';
 
 import { listIconsConstant } from './constants/list-icons.constant';
+import styles from './styles/icon.module.css';
 
 interface IconProps extends LucideProps {
   name: keyof typeof listIconsConstant;
@@ -20,7 +21,14 @@ export function Icon({
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div
+          className={styles.skeleton}
+          style={{ width: size, height: size }}
+        />
+      }
+    >
       <IconComponent strokeWidth={strokeWidth} size={size} {...props} />
     </Suspense>
   );
