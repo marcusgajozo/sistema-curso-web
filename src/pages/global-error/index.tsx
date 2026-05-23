@@ -1,6 +1,7 @@
 import { isRouteErrorResponse, Link, useRouteError } from 'react-router';
 
-import { Icon } from '../../components/icon';
+import { Icon } from '@/components/icon';
+
 import styles from './styles/global-error.module.css';
 
 export function GlobalError() {
