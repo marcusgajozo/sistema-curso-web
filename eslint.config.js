@@ -86,6 +86,7 @@ export default defineConfig([
         'warn',
         { terms: ['fixme', 'hack'], location: 'start' },
       ],
+      'react-refresh/only-export-components': 'off',
     },
   },
 ]);

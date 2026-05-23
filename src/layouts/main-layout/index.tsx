@@ -8,7 +8,7 @@ export function MainLayout() {
     <main className={styles.main}>
       <Sidebar />
       <section className={styles.content}>
-        <Outlet />;
+        <Outlet />
       </section>
     </main>
   );
