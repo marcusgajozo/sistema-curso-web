@@ -1,7 +1,8 @@
 import { Link } from 'react-router';
 
-import { Icon } from '../../../components/icon';
-import { listIconsConstant } from '../../../components/icon/constants/list-icons.constant';
+import { Icon } from '@/components/icon';
+import { listIconsConstant } from '@/components/icon/constants/list-icons.constant';
+
 import styles from './styles/sidebar.module.css';
 
 type MenuItem = {
