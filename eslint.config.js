@@ -8,6 +8,7 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import unusedImports from 'eslint-plugin-unused-imports';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 
 const noCommentsPlugin = {
   rules: {
@@ -39,6 +40,7 @@ const noCommentsPlugin = {
 
 export default defineConfig([
   globalIgnores(['dist']),
+  ...pluginQuery.configs['flat/recommended'],
   {
     files: ['**/*.{ts,tsx}'],
     extends: [

@@ -12,10 +12,15 @@
     "lint:fix": "eslint --fix; prettier . --write"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.100.13",
+    "@tanstack/react-query-devtools": "^5.100.13",
+    "axios": "^1.16.1",
     "lucide-react": "^1.16.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router": "^7.15.1"
+    "react-router": "^7.15.1",
+    "sonner": "^2.0.7",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
@@ -23,6 +28,7 @@
     "@commitlint/config-conventional": "^21.0.1",
     "@eslint/js": "^10.0.1",
     "@rolldown/plugin-babel": "^0.2.3",
+    "@tanstack/eslint-plugin-query": "^5.100.13",
     "@types/babel__core": "^7.20.5",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
