@@ -1,48 +1,16 @@
 import { Link } from 'react-router';
 
 import { Icon } from '@/components/icon';
-import { listIconsConstant } from '@/components/icon/constants/list-icons.constant';
 
+import { menuItems } from './constants/menuItems';
 import styles from './styles/sidebar.module.css';
+import type { MenuItem } from './types/menu';
 
-type MenuItem = {
-  titulo: string;
-  icon?: keyof typeof listIconsConstant;
-  url?: string;
-  function?: () => void;
-  childrens?: MenuItem[];
-};
+interface MenuListProps {
+  items: MenuItem[];
+}
 
-const menu: MenuItem[] = [
-  {
-    titulo: 'Home',
-    icon: 'home',
-    url: '/',
-  },
-  {
-    titulo: 'Cursos',
-    icon: 'suitcase',
-    childrens: [
-      {
-        titulo: 'Disponíveis',
-        icon: 'file-code',
-        url: '/cursos',
-      },
-      {
-        titulo: 'Meus Cursos',
-        icon: 'user-fill',
-        url: '/meus-cursos',
-      },
-    ],
-  },
-  {
-    titulo: 'Configurações',
-    icon: 'thunder',
-    function: () => alert('Abrindo configurações...'),
-  },
-];
-
-function MenuList({ items }: { items: MenuItem[] }) {
+function MenuList({ items }: MenuListProps) {
   return (
     <ul className={styles.menuList}>
       {items.map((item, index) => (
@@ -86,7 +54,7 @@ function MenuList({ items }: { items: MenuItem[] }) {
 export function Sidebar() {
   return (
     <nav className={styles.sidebar}>
-      <MenuList items={menu} />
+      <MenuList items={menuItems} />
     </nav>
   );
 }
