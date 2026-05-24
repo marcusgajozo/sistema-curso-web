@@ -1,6 +1,11 @@
 import z from 'zod';
 
-import { createPaginatedResponseSchema } from '../schemas/api-schema';
+import { cursoSchema } from '../cursos/schemas';
+import {
+  createPaginatedResponseSchema,
+  createResponseSchema,
+} from '../schemas/api-schema';
+import { turmaSchema } from '../turmas/schemas';
 
 export const usuarioSchema = z.object({
   id: z.uuid(),
@@ -18,6 +23,13 @@ export const createUsuarioSchema = z.object({
 });
 
 export const getUsuariosShema = createPaginatedResponseSchema(usuarioSchema);
+export const getUsuarioIdShema = createResponseSchema(
+  usuarioSchema.and(
+    z.object({
+      turmas: z.array(turmaSchema.and(z.object({ curso: cursoSchema }))),
+    }),
+  ),
+);
 
 export const matricularUsuario = z.object({
   usuarioId: z.uuid(),

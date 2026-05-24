@@ -1,6 +1,7 @@
 import type { ApiRoutes } from '../api-routes';
 import {
   createUsuarioSchema,
+  getUsuarioIdShema,
   getUsuariosShema,
   matricularUsuario,
 } from './schemas';
@@ -13,6 +14,13 @@ export const apiRoutesUsuarios = {
       },
       get: {
         responseSchema: getUsuariosShema,
+      },
+    },
+  },
+  '/usuarios/:id': {
+    methods: {
+      get: {
+        responseSchema: getUsuarioIdShema,
       },
     },
   },

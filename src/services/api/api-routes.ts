@@ -9,6 +9,7 @@ export const routes = [
   '/usuarios',
   '/turmas',
   '/usuarios/matricular',
+  '/usuarios/:id',
 ] as const;
 
 export type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
