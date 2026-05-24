@@ -11,7 +11,7 @@ export const routes = [
   '/usuarios/matricular',
   '/usuarios/:id',
   '/turmas/:id',
-  '/usuarios/cencelar-matricula',
+  '/usuarios/cancelar-matricula',
   '/cursos',
   '/cursos/:id',
 ] as const;

@@ -61,29 +61,6 @@
   line-height: 1.4;
 }
 
-.statusBadge {
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 0.2rem 0.5rem;
-  border-radius: 9999px;
-  text-transform: uppercase;
-}
-
-.statusBadge.ativo {
-  background-color: color-mix(in srgb, var(--success) 15%, transparent);
-  color: var(--success);
-}
-
-.statusBadge.inativo {
-  background-color: color-mix(in srgb, var(--text-secondary) 15%, transparent);
-  color: var(--text-secondary);
-}
-
-.statusBadge.arquivado {
-  background-color: color-mix(in srgb, var(--warning) 15%, transparent);
-  color: var(--warning);
-}
-
 .description {
   margin: 0;
   font-size: 0.875rem;
@@ -123,15 +100,6 @@
   margin-top: auto;
   padding-top: 1rem;
   border-top: 1px dashed var(--border);
-}
-
-.vagasInfo {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--primary);
-  background-color: color-mix(in srgb, var(--primary) 10%, transparent);
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
 }
 
 .fallbackImage {

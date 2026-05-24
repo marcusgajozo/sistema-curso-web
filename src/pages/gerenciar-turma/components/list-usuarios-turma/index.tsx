@@ -1,4 +1,3 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/button';
@@ -6,6 +5,7 @@ import { Pagination } from '@/components/pagination';
 import { SuspenseLoading } from '@/components/suspense-loading';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { useRequest } from '@/hooks/use-request';
+import { queryClient } from '@/libs/query-client';
 
 import styles from './styles/list-usuarios-turma.module.css';
 
@@ -20,14 +20,9 @@ export function ListUsuariosTurma({
   turmaUsuariosIds,
   isDisponivel,
 }: ListUsuariosTurmaProps) {
-  const queryClient = useQueryClient();
   const { queryParams } = useQueryParams();
 
-  const {
-    data: usuariosResponse,
-    isLoading,
-    refetch,
-  } = useRequest({
+  const { data: usuariosResponse, isLoading } = useRequest({
     route: '/usuarios',
     method: 'get',
     autoFetch: true,
@@ -45,6 +40,15 @@ export function ListUsuariosTurma({
     },
   });
 
+  const { mutate: cancelarMatricular, isLoading: isLoadingCancelarMatricular } =
+    useRequest({
+      route: '/usuarios/cancelar-matricula',
+      method: 'post',
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+
   const handleMatricular = (usuarioId: string) => {
     if (!turmaId) return;
 
@@ -52,17 +56,30 @@ export function ListUsuariosTurma({
       { usuarioId, turmasIds: [turmaId] },
       {
         onSuccess: async () => {
-          await queryClient.invalidateQueries({ queryKey: ['/turmas'] });
-          await refetch();
+          await Promise.all([
+            queryClient.invalidateQueries({ queryKey: ['/turmas/:id'] }),
+            queryClient.invalidateQueries({ queryKey: ['/usuarios'] }),
+          ]);
           toast.success('Aluno matriculado com sucesso!');
         },
       },
     );
   };
 
-  const handleCancelarMatricula = (_usuarioId: string) => {
-    toast.info(
-      'Funcionalidade de cancelar matrícula será implementada em breve.',
+  const handleCancelarMatricula = (usuarioId: string) => {
+    if (!turmaId) return;
+
+    cancelarMatricular(
+      { usuarioId, turmasIds: [turmaId] },
+      {
+        onSuccess: async () => {
+          await Promise.all([
+            queryClient.invalidateQueries({ queryKey: ['/turmas/:id'] }),
+            queryClient.invalidateQueries({ queryKey: ['/usuarios'] }),
+          ]);
+          toast.success('Matricula do aluno cancelada com sucesso!');
+        },
+      },
     );
   };
 
@@ -98,6 +115,7 @@ export function ListUsuariosTurma({
                       variant="danger"
                       iconName="user-fill"
                       onClick={() => handleCancelarMatricula(usuario.id)}
+                      isLoading={isLoadingCancelarMatricular}
                     >
                       Cancelar Matrícula
                     </Button>
@@ -105,6 +123,7 @@ export function ListUsuariosTurma({
                     <Button
                       iconName="user-fill"
                       onClick={() => handleMatricular(usuario.id)}
+                      isLoading={isMatriculating}
                       disabled={isMatriculating || !isDisponivel}
                     >
                       Matricular

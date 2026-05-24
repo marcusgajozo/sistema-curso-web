@@ -1,7 +1,11 @@
+import { useMutation } from '@tanstack/react-query';
 import { generatePath, useNavigate } from 'react-router';
+import { toast } from 'sonner';
 import z from 'zod';
 
 import { GenericList } from '@/components/generic-list';
+import { httpClient } from '@/libs/http-client';
+import { queryClient } from '@/libs/query-client';
 import { ROUTES } from '@/routes/constants/routes-constants';
 import type { metaSchema } from '@/services/api/schemas/api-schema';
 import type { turmaSchema } from '@/services/api/turmas/schemas';
@@ -23,6 +27,23 @@ export function ListTurmas({
   listAction,
 }: ListTurmasProps) {
   const navigate = useNavigate();
+
+  const { mutate: deleteTurma } = useMutation({
+    mutationFn: (id: string) => httpClient.delete(`/turmas/${id}`),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['/turmas'] }),
+        queryClient.invalidateQueries({ queryKey: ['/cursos/:id'] }),
+        queryClient.invalidateQueries({ queryKey: ['/cursos/disponiveis'] }),
+        queryClient.invalidateQueries({ queryKey: ['/cursos'] }),
+      ]);
+      toast.success('Turma excluído com sucesso!');
+    },
+    onError: () => {
+      toast.error('Erro ao excluir o curso.');
+    },
+  });
+
   return (
     <GenericList
       data={data}
@@ -38,10 +59,6 @@ export function ListTurmas({
               ? listAction(turma)
               : [
                   {
-                    name: 'Editar Turma',
-                    function: () => alert(`Editar ${turma.titulo}`),
-                  },
-                  {
                     name: 'Gerenciar turma',
                     function: () =>
                       navigate(
@@ -52,7 +69,7 @@ export function ListTurmas({
                   },
                   {
                     name: 'Excluir',
-                    function: () => alert(`Excluir ${turma.titulo}`),
+                    function: () => deleteTurma(turma.id),
                     destructive: true,
                   },
                 ]

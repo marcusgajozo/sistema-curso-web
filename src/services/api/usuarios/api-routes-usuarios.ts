@@ -14,11 +14,11 @@ export const apiRoutesUsuarios = {
     methods: {
       post: {
         formSchema: createUsuarioSchema,
-        errorApiSchema: errorApiSchema,
+        errorApiSchema,
       },
       get: {
         responseSchema: getUsuariosShema,
-        errorApiSchema: errorApiSchema,
+        errorApiSchema,
       },
     },
   },
@@ -26,13 +26,14 @@ export const apiRoutesUsuarios = {
     methods: {
       get: {
         responseSchema: getUsuarioIdShema,
-        errorApiSchema: errorApiSchema,
+        errorApiSchema,
       },
       patch: {
         formSchema: updateUsuario,
+        errorApiSchema,
       },
       delete: {
-        errorApiSchema: errorApiSchema,
+        errorApiSchema,
       },
     },
   },
@@ -40,14 +41,15 @@ export const apiRoutesUsuarios = {
     methods: {
       post: {
         formSchema: matricularUsuario,
-        errorApiSchema: errorApiSchema,
+        errorApiSchema,
       },
     },
   },
-  '/usuarios/cencelar-matricula': {
+  '/usuarios/cancelar-matricula': {
     methods: {
       post: {
         formSchema: cancelarMatricula,
+        errorApiSchema,
       },
     },
   },
