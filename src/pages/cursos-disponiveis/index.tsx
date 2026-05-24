@@ -1,3 +1,4 @@
+import { ListCurso } from '@/components/list-curso';
 import { Page } from '@/components/page';
 
 import { useCursosDisponiveis } from './hooks/use-cursos-disponiveis';
@@ -9,9 +10,7 @@ export function CursosDisponiveis() {
     <Page.Root>
       <Page.Content>
         <Page.Header title="Cursos Disponíveis" />
-        {cursos?.data.map((item) => {
-          return <>{item.temas}</>;
-        })}
+        <ListCurso data={cursos?.data} meta={cursos?.meta} />
       </Page.Content>
     </Page.Root>
   );
