@@ -9,31 +9,9 @@ import {
 } from '@/components/dropdown-menu';
 import type { usuarioSchema } from '@/services/api/usuarios/schemas';
 import type { CardProps } from '@/types/card';
+import { getColor } from '@/util/get-color';
 
 import styles from './styles/usuario-card.module.css';
-
-const colors = [
-  '#ef4444',
-  '#f97316',
-  '#f59e0b',
-  '#84cc16',
-  '#22c55e',
-  '#10b981',
-  '#06b6d4',
-  '#3b82f6',
-  '#6366f1',
-  '#8b5cf6',
-  '#d946ef',
-  '#f43f5e',
-];
-
-function getColor(text: string) {
-  let hash = 0;
-  for (let i = 0; i < text.length; i++) {
-    hash = text.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return colors[Math.abs(hash) % colors.length];
-}
 
 export function UsuarioCard({
   data,
