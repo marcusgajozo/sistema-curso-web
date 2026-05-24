@@ -6,7 +6,7 @@ export const menuItems: MenuItem[] = [
   {
     titulo: 'Painel',
     icon: 'home',
-    url: ROUTES.PAINEL,
+    url: ROUTES.DASHBOARD,
   },
   {
     titulo: 'Curso',
@@ -15,7 +15,7 @@ export const menuItems: MenuItem[] = [
       {
         titulo: 'Cursos',
         icon: 'file-code',
-        url: ROUTES.CURSOS_DISPONIVEIS,
+        url: ROUTES.CURSOS,
       },
       {
         titulo: 'Cursos disponíveis',

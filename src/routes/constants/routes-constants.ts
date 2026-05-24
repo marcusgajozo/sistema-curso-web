@@ -1,6 +1,7 @@
 export const ROUTES = {
-  PAINEL: '/',
+  DASHBOARD: '/',
   CURSOS_DISPONIVEIS: '/cursos-disponiveis',
+  CURSOS: '/cursos',
   CREATE_USUARIO: '/cadastrar-usuario',
   TURMAS: '/turmas',
   USUARIOS: '/usuarios',
