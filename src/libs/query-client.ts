@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 const handleErrors = (error: Error) => {
   if (error instanceof z.ZodError) {
-    toast.error('Error ao validar dados!');
+    toast.error(`Erro ao validar dados: ${error.message}`);
   }
 };
 
