@@ -29,7 +29,7 @@ export function CreateUsuario() {
   return (
     <Page.Root>
       <Page.Content>
-        <Page.Header title="Cadastrar Usuário" />
+        <Page.Header title="Cadastrar Usuário" hasBack />
         <form
           onSubmit={onSubmit}
           style={{ display: 'flex', flexDirection: 'column', gap: 20 }}

@@ -43,7 +43,7 @@ export function GerenciarTurma() {
   return (
     <Page.Root>
       <Page.Content>
-        <Page.Header title="Gerenciar turma" />
+        <Page.Header title="Gerenciar turma" hasBack />
         <p>
           Adicione alunos à turma <strong>{turma?.titulo}</strong>. Restam{' '}
           {vagasRestantes} vagas. <br />
