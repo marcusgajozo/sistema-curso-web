@@ -51,20 +51,26 @@ type UseRequestProps<
   method: M & HttpMethod;
   autoFetch?: boolean;
   queryKey?: string | unknown[];
+  queryParams?: Record<string, unknown>;
 } & RouteParamsProp<R extends string ? R : string>;
 
-function callHttpMethod(method: HttpMethod, url: string, payload?: unknown) {
+function callHttpMethod(
+  method: HttpMethod,
+  url: string,
+  payload?: unknown,
+  queryParams?: Record<string, unknown>,
+) {
   switch (method) {
     case 'get':
-      return httpClient.get(url);
+      return httpClient.get(url, { params: queryParams });
     case 'post':
-      return httpClient.post(url, payload);
+      return httpClient.post(url, payload, { params: queryParams });
     case 'put':
-      return httpClient.put(url, payload);
+      return httpClient.put(url, payload, { params: queryParams });
     case 'patch':
-      return httpClient.patch(url, payload);
+      return httpClient.patch(url, payload, { params: queryParams });
     case 'delete':
-      return httpClient.delete(url);
+      return httpClient.delete(url, { params: queryParams });
   }
 }
 
@@ -72,7 +78,16 @@ export function useRequest<
   R extends keyof typeof apiRoutes,
   M extends keyof (typeof apiRoutes)[R]['methods'],
 >(props: UseRequestProps<R, M>) {
-  const { route, method, autoFetch = false, queryKey, params } = props as any;
+  const {
+    route,
+    method,
+    autoFetch = false,
+    queryKey,
+    params,
+    queryParams,
+  } = props as UseRequestProps<R, M> & {
+    params?: Record<string, string | number>;
+  };
 
   const routeConfig = apiRoutes[route as keyof typeof apiRoutes] as any;
   const methodConfig = routeConfig.methods[method];
@@ -93,9 +108,14 @@ export function useRequest<
     : defaultQueryKey;
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: [...finalQueryKey, httpMethod, parsedRoute],
+    queryKey: [...finalQueryKey, httpMethod, parsedRoute, queryParams],
     queryFn: async () => {
-      const response = await callHttpMethod(httpMethod, parsedRoute);
+      const response = await callHttpMethod(
+        httpMethod,
+        parsedRoute,
+        undefined,
+        queryParams,
+      );
       return response?.data;
     },
 
