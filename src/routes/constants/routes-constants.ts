@@ -4,4 +4,5 @@ export const ROUTES = {
   CREATE_USUARIO: '/cadastrar-usuario',
   TURMAS: '/turmas',
   USUARIOS: '/usuarios',
+  USUARIO_ID: '/usuarios/:id',
 } as const;

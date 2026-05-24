@@ -1,7 +1,9 @@
+import { generatePath, useNavigate } from 'react-router';
 import z from 'zod';
 
 import { Pagination } from '@/components/pagination';
 import { UsuarioCard } from '@/components/usuario-card';
+import { ROUTES } from '@/routes/constants/routes-constants';
 import type { metaSchema } from '@/services/api/schemas/api-schema';
 import type { usuarioSchema } from '@/services/api/usuarios/schemas';
 
@@ -13,6 +15,7 @@ interface ListUsuariosProps {
 }
 
 export function ListUsuarios({ data = [], meta }: ListUsuariosProps) {
+  const navigate = useNavigate();
   return (
     <>
       {data.length > 0 ? (
@@ -24,8 +27,11 @@ export function ListUsuarios({ data = [], meta }: ListUsuariosProps) {
                 usuario={usuario}
                 listAction={[
                   {
-                    name: 'Editar Usuário',
-                    function: () => alert(`Editar ${usuario.nome}`),
+                    name: 'Mais informações',
+                    function: () =>
+                      navigate(
+                        generatePath(ROUTES.USUARIO_ID, { id: usuario.id }),
+                      ),
                   },
                   {
                     name: 'Excluir',

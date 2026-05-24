@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 interface SuspenseLoadingProps {
-  isLoading: boolean;
+  isLoading?: boolean;
   fallback: ReactNode;
   children: ReactNode;
 }

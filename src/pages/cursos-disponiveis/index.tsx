@@ -1,4 +1,4 @@
-import { ListCurso } from '@/components/list-curso';
+import { ListCursos } from '@/components/list-cursos';
 import { Page } from '@/components/page';
 
 import { FilterCursosDisponiveis } from './components/filter-cursos-disponiveis';
@@ -12,7 +12,7 @@ export function CursosDisponiveis() {
       <Page.Content>
         <Page.Header title="Cursos Disponíveis" />
         <FilterCursosDisponiveis />
-        <ListCurso data={cursos?.data} meta={cursos?.meta} />
+        <ListCursos data={cursos?.data} meta={cursos?.meta} />
       </Page.Content>
     </Page.Root>
   );

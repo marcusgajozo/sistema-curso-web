@@ -16,7 +16,7 @@ interface ListCursoProps {
   meta?: z.output<typeof metaSchema>['meta'];
 }
 
-export function ListCurso({ data = [], meta }: ListCursoProps) {
+export function ListCursos({ data = [], meta }: ListCursoProps) {
   return (
     <>
       {data.length > 0 ? (

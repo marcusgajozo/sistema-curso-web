@@ -4,6 +4,8 @@ import { SuspenseLoading } from '@/components/suspense-loading';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { useRequest } from '@/hooks/use-request';
 
+import { FilterUsuarios } from './components/filter-usuarios';
+
 export function Usuarios() {
   const { queryParams } = useQueryParams();
 
@@ -18,6 +20,8 @@ export function Usuarios() {
     <Page.Root>
       <Page.Content>
         <Page.Header title="Usuários" />
+
+        <FilterUsuarios />
 
         <SuspenseLoading
           isLoading={isLoading}
@@ -34,8 +38,8 @@ export function Usuarios() {
           }
         >
           <ListUsuarios
-            data={usuariosResponse?.data || []}
-            meta={(usuariosResponse as any)?.meta}
+            data={usuariosResponse?.data}
+            meta={usuariosResponse?.meta}
           />
         </SuspenseLoading>
       </Page.Content>
