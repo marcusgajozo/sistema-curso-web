@@ -8,13 +8,13 @@ import { FilterUsuarios } from './components/filter-usuarios';
 import { ListUsuariosTurma } from './components/list-usuarios-turma';
 
 export function GerenciarTurma() {
-  const { id: turmaId } = useParams<{ id: string }>();
+  const { turmaId } = useParams<{ turmaId: string }>();
 
   const { data: turmaData } = useRequest({
     route: '/turmas/:id',
     method: 'get',
     params: { id: turmaId || '' },
-    autoFetch: true,
+    autoFetch: !!turmaId,
   });
 
   const turma = turmaData?.data;
