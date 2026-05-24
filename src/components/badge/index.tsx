@@ -1,6 +1,7 @@
+import { clsx } from 'clsx';
 import type { ReactNode } from 'react';
 
-import styles from './styles.module.css';
+import styles from './styles/badge.module.css';
 
 interface BadgeProps {
   children: ReactNode;
@@ -9,6 +10,6 @@ interface BadgeProps {
 
 export function Badge({ children, variant = 'default' }: BadgeProps) {
   return (
-    <span className={`${styles.badge} ${styles[variant]}`}>{children}</span>
+    <span className={clsx(styles.badge, styles[variant])}>{children}</span>
   );
 }

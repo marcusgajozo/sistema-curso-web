@@ -1,6 +1,7 @@
+import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 
-import styles from './styles.module.css';
+import styles from './styles/checkbox-group.module.css';
 
 export interface CheckboxOption {
   label: string;
@@ -43,7 +44,7 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
     };
 
     return (
-      <div className={`${styles.container} ${className || ''}`} ref={ref}>
+      <div className={clsx(styles.container, className)} ref={ref}>
         {label && <span className={styles.label}>{label}</span>}
         {description && (
           <span className={styles.description}>{description}</span>

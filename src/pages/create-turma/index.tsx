@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/button';
 import { FormInput } from '@/components/form-input';
-import inputStyles from '@/components/input/styles.module.css';
+import inputStyles from '@/components/input/styles/input.module.css';
 import { Page } from '@/components/page';
 import { useRequest } from '@/hooks/use-request';
 import { turmaStatusConstant } from '@/services/api/constants/turma-status';

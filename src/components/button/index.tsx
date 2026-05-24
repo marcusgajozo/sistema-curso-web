@@ -1,3 +1,4 @@
+import { clsx } from 'clsx';
 import { Loader2 } from 'lucide-react';
 import { type ButtonHTMLAttributes, forwardRef } from 'react';
 import { useNavigate } from 'react-router';
@@ -5,7 +6,7 @@ import { useNavigate } from 'react-router';
 import { Icon } from '@/components/icon';
 import type { listIconsConstant } from '@/components/icon/constants/list-icons.constant';
 
-import styles from './styles.module.css';
+import styles from './styles/button.module.css';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
@@ -31,8 +32,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const navigate = useNavigate();
-    const buttonClass =
-      `${styles.button} ${styles[variant]} ${className || ''}`.trim();
+    const buttonClass = clsx(styles.button, styles[variant], className);
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (to) {

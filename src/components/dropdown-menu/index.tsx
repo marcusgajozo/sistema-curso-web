@@ -1,7 +1,8 @@
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
+import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 
-import styles from './styles.module.css';
+import styles from './styles/dropdown-menu.module.css';
 
 export const DropdownMenu = DropdownMenuPrimitive.Root;
 export const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
@@ -14,7 +15,7 @@ export const DropdownMenuContent = forwardRef<
     <DropdownMenuPrimitive.Content
       ref={ref}
       sideOffset={sideOffset}
-      className={`${styles.content} ${className || ''}`}
+      className={clsx(styles.content, className)}
       {...props}
     />
   </DropdownMenuPrimitive.Portal>
@@ -27,7 +28,7 @@ export const DropdownMenuItem = forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Item
     ref={ref}
-    className={`${styles.item} ${className || ''}`}
+    className={clsx(styles.item, className)}
     {...props}
   />
 ));
@@ -39,7 +40,7 @@ export const DropdownMenuSeparator = forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
-    className={`${styles.separator} ${className || ''}`}
+    className={clsx(styles.separator, className)}
     {...props}
   />
 ));

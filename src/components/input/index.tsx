@@ -1,6 +1,7 @@
+import { clsx } from 'clsx';
 import { forwardRef, type InputHTMLAttributes } from 'react';
 
-import styles from './styles.module.css';
+import styles from './styles/input.module.css';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -13,7 +14,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const inputId = id || props.name;
 
     return (
-      <div className={`${styles.container} ${className || ''}`}>
+      <div className={clsx(styles.container, className)}>
         {label && (
           <label htmlFor={inputId} className={styles.label}>
             {label}

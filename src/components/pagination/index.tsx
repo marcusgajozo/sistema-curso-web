@@ -5,7 +5,7 @@ import { Button } from '@/components/button';
 import { useQueryParams } from '@/hooks/use-query-params';
 import type { metaSchema } from '@/services/api/schemas/api-schema';
 
-import styles from './styles.module.css';
+import styles from './styles/pagination.module.css';
 
 interface PaginationProps {
   meta?: z.output<typeof metaSchema>['meta'];
