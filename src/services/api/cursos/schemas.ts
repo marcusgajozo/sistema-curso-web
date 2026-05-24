@@ -1,7 +1,10 @@
 import z from 'zod';
 
 import { cursoTemasConstant } from '../constants/curso-temas';
-import { createPaginatedResponseSchema } from '../schemas/api-schema';
+import {
+  createPaginatedResponseSchema,
+  createResponseSchema,
+} from '../schemas/api-schema';
 import { turmaSchema } from '../turmas/schemas';
 
 export const cursoSchema = z.object({
@@ -22,3 +25,15 @@ export const getCursosDisponiveis = createPaginatedResponseSchema(
     }),
   ),
 );
+
+export const createCurso = z.object({
+  titulo: z.string(),
+  descricao: z.string(),
+  temas: z.array(z.enum(cursoTemasConstant)),
+  urlImagem: z.url(),
+});
+
+export const updateCurso = createCurso.partial();
+
+export const getCursosShema = createPaginatedResponseSchema(cursoSchema);
+export const getCursoSchema = createResponseSchema(cursoSchema);

@@ -35,3 +35,8 @@ export const matricularUsuario = z.object({
   usuarioId: z.uuid(),
   turmasIds: z.array(z.uuid()),
 });
+
+export const cancelarMatricula = matricularUsuario;
+export const updateUsuario = createUsuarioSchema
+  .omit({ turmasIds: true })
+  .partial();

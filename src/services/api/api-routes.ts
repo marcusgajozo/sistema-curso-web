@@ -11,6 +11,9 @@ export const routes = [
   '/usuarios/matricular',
   '/usuarios/:id',
   '/turmas/:id',
+  '/usuarios/cencelar-matricula',
+  '/cursos',
+  '/cursos/:id',
 ] as const;
 
 export type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';

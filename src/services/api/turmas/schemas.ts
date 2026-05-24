@@ -22,3 +22,15 @@ export const turmaSchema = z.object({
 
 export const getTurmasSchema = createPaginatedResponseSchema(turmaSchema);
 export const getTurmaSchema = createResponseSchema(turmaSchema);
+
+export const createTurma = z.object({
+  titulo: z.string(),
+  descricao: z.string(),
+  quantidadeVagas: z.number(),
+  status: z.enum(turmaStatusConstant),
+  dataInicio: z.iso.date(),
+  dataFim: z.iso.date(),
+  cursoId: z.uuid(),
+});
+
+export const updateTurma = createTurma.partial();

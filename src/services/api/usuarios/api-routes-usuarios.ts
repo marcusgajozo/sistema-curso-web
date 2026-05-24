@@ -1,10 +1,12 @@
 import type { ApiRoutes } from '../api-routes';
 import { errorApiSchema } from '../schemas/api-schema';
 import {
+  cancelarMatricula,
   createUsuarioSchema,
   getUsuarioIdShema,
   getUsuariosShema,
   matricularUsuario,
+  updateUsuario,
 } from './schemas';
 
 export const apiRoutesUsuarios = {
@@ -26,6 +28,12 @@ export const apiRoutesUsuarios = {
         responseSchema: getUsuarioIdShema,
         errorApiSchema: errorApiSchema,
       },
+      patch: {
+        formSchema: updateUsuario,
+      },
+      delete: {
+        errorApiSchema: errorApiSchema,
+      },
     },
   },
   '/usuarios/matricular': {
@@ -33,6 +41,13 @@ export const apiRoutesUsuarios = {
       post: {
         formSchema: matricularUsuario,
         errorApiSchema: errorApiSchema,
+      },
+    },
+  },
+  '/usuarios/cencelar-matricula': {
+    methods: {
+      post: {
+        formSchema: cancelarMatricula,
       },
     },
   },
