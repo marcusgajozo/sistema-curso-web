@@ -1,6 +1,6 @@
 import { Page } from '@/components/page';
 
-export function Painel() {
+export function Dashboard() {
   return (
     <Page.Root>
       <Page.Content>

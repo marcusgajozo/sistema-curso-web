@@ -3,9 +3,9 @@ import { createBrowserRouter } from 'react-router';
 import { MainLayout } from '@/layouts/main-layout';
 import { CreateUsuario } from '@/pages/create-usuario';
 import { CursosDisponiveis } from '@/pages/cursos-disponiveis';
+import { Dashboard } from '@/pages/dashboard';
 import { GlobalError } from '@/pages/global-error';
 import { NotFound } from '@/pages/not-found';
-import { Painel } from '@/pages/painel';
 import { Turmas } from '@/pages/turmas';
 import { UsuarioId } from '@/pages/usuario-id';
 import { Usuarios } from '@/pages/usuarios';
@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ROUTES.PAINEL,
-            Component: Painel,
+            Component: Dashboard,
           },
           {
             path: ROUTES.CURSOS_DISPONIVEIS,
