@@ -28,7 +28,16 @@ export function FormInput<T extends FieldValues>({
         <Input
           name={name}
           value={value ?? ''}
-          onChange={onChange}
+          onChange={(e) => {
+            const val = e.target.value;
+            onChange(
+              inputProps.type === 'number'
+                ? val === ''
+                  ? undefined
+                  : Number(val)
+                : val,
+            );
+          }}
           onBlur={onBlur}
           ref={ref}
           error={error?.message}
