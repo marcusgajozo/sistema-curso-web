@@ -30,6 +30,15 @@ type ExtractPayloadType<
   ? T
   : Record<string, unknown>;
 
+type ExtractErrorSchemaType<
+  R extends keyof typeof apiRoutes,
+  M extends keyof (typeof apiRoutes)[R]['methods'],
+> = (typeof apiRoutes)[R]['methods'][M] extends {
+  errorApiSchema: { parse: (data: any) => infer T };
+}
+  ? T
+  : unknown;
+
 type ExtractRouteParams<T extends string> = string extends T
   ? Record<string, string>
   : T extends `${string}:${infer Param}/${infer Rest}`
@@ -43,6 +52,10 @@ type RouteParamsProp<R extends string> =
     ? { params?: never }
     : { params: ExtractRouteParams<R> };
 
+type OnErrorCallback<T> = unknown extends T
+  ? (err: unknown) => void
+  : (err: T | Error) => void;
+
 type UseRequestProps<
   R extends keyof typeof apiRoutes,
   M extends keyof (typeof apiRoutes)[R]['methods'],
@@ -52,6 +65,7 @@ type UseRequestProps<
   autoFetch?: boolean;
   queryKey?: string | unknown[];
   queryParams?: Record<string, unknown>;
+  onError?: OnErrorCallback<ExtractErrorSchemaType<R, M>>;
 } & RouteParamsProp<R extends string ? R : string>;
 
 function callHttpMethod(
@@ -85,6 +99,7 @@ export function useRequest<
     queryKey,
     params,
     queryParams,
+    onError,
   } = props as UseRequestProps<R, M> & {
     params?: Record<string, string | number>;
   };
@@ -107,16 +122,46 @@ export function useRequest<
       : [queryKey]
     : defaultQueryKey;
 
+  const handleApiError = (err: unknown) => {
+    if (!onError) return;
+
+    const errorCallback = onError as (error: unknown) => void;
+
+    if (err && typeof err === 'object' && 'response' in err) {
+      const axiosError = err as any;
+      if (methodConfig?.errorApiSchema && axiosError.response?.data) {
+        const parsed = methodConfig.errorApiSchema.safeParse(
+          axiosError.response.data,
+        );
+        if (parsed.success) {
+          errorCallback(parsed.data);
+          return;
+        }
+      }
+    }
+    errorCallback(err);
+  };
+
   const { data, isLoading, refetch } = useQuery({
     queryKey: [...finalQueryKey, httpMethod, parsedRoute, queryParams],
-    queryFn: async () => {
-      const response = await callHttpMethod(
-        httpMethod,
-        parsedRoute,
-        undefined,
-        queryParams,
-      );
-      return response?.data;
+    queryFn: async ({ meta }) => {
+      try {
+        const response = await callHttpMethod(
+          httpMethod,
+          parsedRoute,
+          undefined,
+          queryParams,
+        );
+        return response?.data;
+      } catch (err) {
+        if (typeof meta?.onError === 'function') {
+          meta.onError(err);
+        }
+        throw err;
+      }
+    },
+    meta: {
+      onError: handleApiError,
     },
 
     select: (data: unknown) => {
@@ -131,6 +176,7 @@ export function useRequest<
       const response = await callHttpMethod(httpMethod, parsedRoute, payload);
       return response?.data;
     },
+    onError: handleApiError,
   });
 
   return {

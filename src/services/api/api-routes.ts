@@ -24,6 +24,7 @@ export type ApiRoutes<T = unknown> = Record<
         {
           formSchema?: ZodType<T>;
           responseSchema?: ZodType<T>;
+          errorApiSchema?: ZodType<T>;
         }
       >
     >;

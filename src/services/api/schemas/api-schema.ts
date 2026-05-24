@@ -1,6 +1,14 @@
 import type { ZodType } from 'zod';
 import { z } from 'zod';
 
+export const errorApiSchema = z.object({
+  statusCode: z.number(),
+  error: z.string(),
+  message: z.string(),
+  timestamp: z.iso.datetime(),
+  path: z.string(),
+});
+
 export const metaSchema = z.object({
   meta: z.object({
     page: z.number(),

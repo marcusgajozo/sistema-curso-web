@@ -1,4 +1,5 @@
 import type { ApiRoutes } from '../api-routes';
+import { errorApiSchema } from '../schemas/api-schema';
 import {
   createUsuarioSchema,
   getUsuarioIdShema,
@@ -11,9 +12,11 @@ export const apiRoutesUsuarios = {
     methods: {
       post: {
         formSchema: createUsuarioSchema,
+        errorApiSchema: errorApiSchema,
       },
       get: {
         responseSchema: getUsuariosShema,
+        errorApiSchema: errorApiSchema,
       },
     },
   },
@@ -21,6 +24,7 @@ export const apiRoutesUsuarios = {
     methods: {
       get: {
         responseSchema: getUsuarioIdShema,
+        errorApiSchema: errorApiSchema,
       },
     },
   },
@@ -28,6 +32,7 @@ export const apiRoutesUsuarios = {
     methods: {
       post: {
         formSchema: matricularUsuario,
+        errorApiSchema: errorApiSchema,
       },
     },
   },
