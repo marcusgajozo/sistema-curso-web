@@ -11,9 +11,15 @@ interface ListCursoProps {
   data?: z.output<typeof cursoSchema>[];
   meta?: z.output<typeof metaSchema>['meta'];
   listAction?: (curso: z.output<typeof cursoSchema>) => ActionOption[];
+  hiddenAction?: boolean;
 }
 
-export function ListCursos({ data = [], meta, listAction }: ListCursoProps) {
+export function ListCursos({
+  data = [],
+  meta,
+  listAction,
+  hiddenAction,
+}: ListCursoProps) {
   return (
     <GenericList
       data={data}
@@ -23,6 +29,7 @@ export function ListCursos({ data = [], meta, listAction }: ListCursoProps) {
         <CursoCard
           key={curso.id}
           data={curso}
+          hiddenAction={hiddenAction}
           listAction={
             listAction
               ? listAction(curso)

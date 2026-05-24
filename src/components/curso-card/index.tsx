@@ -17,6 +17,7 @@ import styles from './styles/curso-card.module.css';
 export function CursoCard({
   data,
   listAction,
+  hiddenAction,
 }: CardProps<z.output<typeof cursoSchema>>) {
   const [imgError, setImgError] = useState(false);
   const turmasAtivas = data.turmaIds?.length || 0;
@@ -64,7 +65,7 @@ export function CursoCard({
               : `${turmasAtivas} turmas ativas`}
           </div>
 
-          {listAction && listAction.length > 0 && (
+          {!hiddenAction && listAction && listAction.length > 0 && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button

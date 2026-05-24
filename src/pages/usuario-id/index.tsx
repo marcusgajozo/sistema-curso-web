@@ -43,7 +43,7 @@ export function UsuarioId() {
           >
             Cursos
           </h3>
-          <ListCursos data={cursos} />
+          <ListCursos data={cursos} hiddenAction />
           <h3
             style={{
               margin: '1.5rem 0',
@@ -53,7 +53,7 @@ export function UsuarioId() {
           >
             Turmas
           </h3>
-          <ListTurmas data={turmas} />
+          <ListTurmas data={turmas} hiddenAction />
         </Page.Content>
       </SuspenseLoading>
     </Page.Root>
