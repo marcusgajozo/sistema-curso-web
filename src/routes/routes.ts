@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 
 import { MainLayout } from '@/layouts/main-layout';
+import { CreateUsuario } from '@/pages/create-usuario';
 import { CursosDisponiveis } from '@/pages/cursos-disponiveis';
 import { GlobalError } from '@/pages/global-error';
 import { NotFound } from '@/pages/not-found';
@@ -24,8 +25,8 @@ export const router = createBrowserRouter([
             Component: CursosDisponiveis,
           },
           {
-            path: 'teste',
-            Component: GlobalError,
+            path: ROUTES.CREATE_USUARIO,
+            Component: CreateUsuario,
           },
         ],
       },
