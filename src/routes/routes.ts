@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router';
 
 import { MainLayout } from '@/layouts/main-layout';
 import { CreateCurso } from '@/pages/create-curso';
+import { CreateTurma } from '@/pages/create-turma';
 import { CreateUsuario } from '@/pages/create-usuario';
 import { Cursos } from '@/pages/cursos';
 import { CursosDisponiveis } from '@/pages/cursos-disponiveis';
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.CREATE_CURSO,
             Component: CreateCurso,
+          },
+          {
+            path: ROUTES.CREATE_TURMA,
+            Component: CreateTurma,
           },
           {
             path: ROUTES.TURMAS,

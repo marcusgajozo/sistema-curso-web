@@ -7,13 +7,13 @@ import { SuspenseLoading } from '@/components/suspense-loading';
 import { useRequest } from '@/hooks/use-request';
 
 export function UsuarioId() {
-  const { id: usuarioId } = useParams<{ id: string }>();
+  const { usuarioId } = useParams<{ usuarioId: string }>();
 
   const { data, isLoading } = useRequest({
     route: '/usuarios/:id',
     params: { id: usuarioId || '' },
     method: 'get',
-    autoFetch: true,
+    autoFetch: !!usuarioId,
   });
 
   const usuario = data?.data;
@@ -23,9 +23,12 @@ export function UsuarioId() {
 
   return (
     <Page.Root>
-      <SuspenseLoading isLoading={isLoading}>
+      <SuspenseLoading
+        fallback={<>Carregando dados...</>}
+        isLoading={isLoading}
+      >
         <Page.Content>
-          <Page.Header title={`Informações de ${usuario?.nome}`} />
+          <Page.Header title={`Informações de ${usuario?.nome}`} hasBack />
           <div>
             <p>
               <strong>Email:</strong> {usuario?.email}
