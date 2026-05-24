@@ -13,6 +13,30 @@
   margin-bottom: 2rem;
 }
 
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background-color: var(--surface-hover);
+  color: var(--text-primary);
+}
+
 .title {
   font-size: 1.875rem;
   font-weight: 700;

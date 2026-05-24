@@ -1,4 +1,6 @@
+import { ArrowLeft } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { useNavigate } from 'react-router';
 
 import styles from './styles/page.module.css';
 
@@ -12,12 +14,27 @@ function PageRoot({ children }: PageRootProps) {
 
 interface PageHeaderProps {
   title: string;
+  hasBack?: boolean;
 }
 
-function PageHeader({ title }: PageHeaderProps) {
+function PageHeader({ title, hasBack }: PageHeaderProps) {
+  const navigate = useNavigate();
+
   return (
     <header className={styles.header}>
-      <h1 className={styles.title}>{title}</h1>
+      <div className={styles.titleContainer}>
+        {hasBack && (
+          <button
+            type="button"
+            className={styles.backButton}
+            onClick={() => void navigate(-1)}
+            aria-label="Voltar"
+          >
+            <ArrowLeft size={24} />
+          </button>
+        )}
+        <h1 className={styles.title}>{title}</h1>
+      </div>
     </header>
   );
 }
