@@ -7,4 +7,5 @@ export const ROUTES = {
   USUARIOS: '/usuarios',
   USUARIO_ID: '/usuarios/:id',
   GERENCIAR_TURMA: '/gerenciar-turma/:id',
+  CREATE_CURSO: '/cadastrar-curso',
 } as const;
