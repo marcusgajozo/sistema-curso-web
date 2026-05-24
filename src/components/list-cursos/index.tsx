@@ -30,26 +30,7 @@ export function ListCursos({
           key={curso.id}
           data={curso}
           hiddenAction={hiddenAction}
-          listAction={
-            listAction
-              ? listAction(curso)
-              : [
-                  {
-                    name: 'Editar Curso',
-                    function: () => alert(`Editar ${curso.titulo}`),
-                  },
-                  {
-                    name: 'Gerenciar Turmas',
-                    function: () =>
-                      alert(`Gerenciar turmas de ${curso.titulo}`),
-                  },
-                  {
-                    name: 'Excluir',
-                    function: () => alert(`Excluir ${curso.titulo}`),
-                    destructive: true,
-                  },
-                ]
-          }
+          listAction={listAction?.(curso)}
         />
       )}
     />

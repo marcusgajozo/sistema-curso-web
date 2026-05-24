@@ -3,6 +3,8 @@ import { Page } from '@/components/page';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { useRequest } from '@/hooks/use-request';
 
+import { FilterTurmas } from './components/filter-turmas';
+
 export function Turmas() {
   const { queryParams } = useQueryParams();
 
@@ -17,6 +19,7 @@ export function Turmas() {
     <Page.Root>
       <Page.Content>
         <Page.Header title="Turmas" />
+        <FilterTurmas />
         <ListTurmas data={turmaData?.data} meta={turmaData?.meta} />
       </Page.Content>
     </Page.Root>

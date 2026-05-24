@@ -4,6 +4,7 @@ import { MainLayout } from '@/layouts/main-layout';
 import { CreateCurso } from '@/pages/create-curso';
 import { CreateTurma } from '@/pages/create-turma';
 import { CreateUsuario } from '@/pages/create-usuario';
+import { CursoId } from '@/pages/curso-id';
 import { Cursos } from '@/pages/cursos';
 import { CursosDisponiveis } from '@/pages/cursos-disponiveis';
 import { Dashboard } from '@/pages/dashboard';
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.CURSOS,
             Component: Cursos,
+          },
+          {
+            path: ROUTES.CURSO_ID,
+            Component: CursoId,
           },
         ],
       },

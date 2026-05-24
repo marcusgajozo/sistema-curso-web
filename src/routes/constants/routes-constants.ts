@@ -9,4 +9,5 @@ export const ROUTES = {
   GERENCIAR_TURMA: '/gerenciar-turma/:turmaId',
   CREATE_CURSO: '/cadastrar-curso',
   CREATE_TURMA: '/cadastrar-turma/:cursoId',
+  CURSO_ID: '/cursos/:cursoId',
 } as const;
