@@ -1,30 +1,49 @@
+import { ROUTES } from '@/routes/constants/routes-constants';
+
 import type { MenuItem } from '../types/menu';
 
 export const menuItems: MenuItem[] = [
   {
-    titulo: 'Home',
+    titulo: 'Painel',
     icon: 'home',
-    url: '/',
+    url: ROUTES.PAINEL,
   },
   {
-    titulo: 'Cursos',
+    titulo: 'Curso',
     icon: 'suitcase',
     childrens: [
       {
-        titulo: 'Disponíveis',
+        titulo: 'Cursos',
         icon: 'file-code',
-        url: '/cursos',
+        url: ROUTES.CURSOS_DISPONIVEIS,
       },
       {
-        titulo: 'Meus Cursos',
-        icon: 'user-fill',
-        url: '/meus-cursos',
+        titulo: 'Cursos disponíveis',
+        icon: 'file-code',
+        url: ROUTES.CURSOS_DISPONIVEIS,
       },
     ],
   },
   {
-    titulo: 'Configurações',
-    icon: 'thunder',
-    function: () => alert('Abrindo configurações...'),
+    titulo: 'Turma',
+    icon: 'suitcase',
+    childrens: [
+      {
+        titulo: 'Turmas',
+        icon: 'file-code',
+        url: ROUTES.CURSOS_DISPONIVEIS,
+      },
+    ],
+  },
+  {
+    titulo: 'Usuário',
+    icon: 'suitcase',
+    childrens: [
+      {
+        titulo: 'Usuários',
+        icon: 'file-code',
+        url: ROUTES.CURSOS_DISPONIVEIS,
+      },
+    ],
   },
 ];
