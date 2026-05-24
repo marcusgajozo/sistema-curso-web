@@ -1,5 +1,4 @@
 import { clsx } from 'clsx';
-import { Loader2 } from 'lucide-react';
 import { type ButtonHTMLAttributes, forwardRef } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -54,7 +53,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {isLoading ? (
-          <Loader2 className={styles.spinner} />
+          <Icon name="loader-2" className={styles.spinner} />
         ) : iconName ? (
           <Icon name={iconName} size={16} />
         ) : null}

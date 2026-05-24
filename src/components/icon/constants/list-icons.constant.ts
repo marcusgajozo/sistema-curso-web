@@ -1,44 +1,37 @@
-import { lazy } from 'react';
+import {
+  ArrowLeft,
+  BookOpen,
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  FileCode,
+  Folder,
+  Home,
+  Loader2,
+  Mail,
+  Moon,
+  MoreVertical,
+  Sun,
+  User,
+  Users,
+  Zap,
+} from 'lucide-react';
 
 export const listIconsConstant = {
-  home: lazy(() =>
-    import('lucide-react').then(({ Home }) => ({
-      default: Home,
-    })),
-  ),
-  'file-code': lazy(() =>
-    import('lucide-react').then(({ FileCode }) => ({
-      default: FileCode,
-    })),
-  ),
-  suitcase: lazy(() =>
-    import('lucide-react').then(({ Folder }) => ({
-      default: Folder,
-    })),
-  ),
-  'mail-right': lazy(() =>
-    import('lucide-react').then(({ Mail }) => ({
-      default: Mail,
-    })),
-  ),
-  moon: lazy(() =>
-    import('lucide-react').then(({ Moon }) => ({
-      default: Moon,
-    })),
-  ),
-  sun: lazy(() =>
-    import('lucide-react').then(({ Sun }) => ({
-      default: Sun,
-    })),
-  ),
-  'user-fill': lazy(() =>
-    import('lucide-react').then(({ User }) => ({
-      default: User,
-    })),
-  ),
-  thunder: lazy(() =>
-    import('lucide-react').then(({ Zap }) => ({
-      default: Zap,
-    })),
-  ),
+  home: Home,
+  'file-code': FileCode,
+  suitcase: Folder,
+  'mail-right': Mail,
+  moon: Moon,
+  sun: Sun,
+  'user-fill': User,
+  thunder: Zap,
+  'chevron-left': ChevronLeft,
+  'chevron-right': ChevronRight,
+  'arrow-left': ArrowLeft,
+  'book-open': BookOpen,
+  'more-vertical': MoreVertical,
+  calendar: Calendar,
+  users: Users,
+  'loader-2': Loader2,
 } as const;

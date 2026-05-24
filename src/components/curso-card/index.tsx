@@ -1,4 +1,3 @@
-import { MoreVertical } from 'lucide-react';
 import { useState } from 'react';
 import type z from 'zod';
 
@@ -8,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu';
+import { Icon } from '@/components/icon';
 import type { cursoSchema } from '@/services/api/cursos/schemas';
 import type { CardProps } from '@/types/card';
 import { getColor } from '@/util/get-color';
@@ -72,7 +72,7 @@ export function CursoCard({
                   className={styles.actionButton}
                   aria-label="Ações do curso"
                 >
-                  <MoreVertical size={16} />
+                  <Icon name="more-vertical" size={16} />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent side="top" align="end">

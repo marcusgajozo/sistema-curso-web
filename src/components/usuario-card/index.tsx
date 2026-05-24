@@ -1,4 +1,3 @@
-import { BookOpen, MoreVertical } from 'lucide-react';
 import type z from 'zod';
 
 import {
@@ -7,6 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu';
+import { Icon } from '@/components/icon';
 import type { usuarioSchema } from '@/services/api/usuarios/schemas';
 import type { CardProps } from '@/types/card';
 import { getColor } from '@/util/get-color';
@@ -35,7 +35,7 @@ export function UsuarioCard({
                   className={styles.actionButton}
                   aria-label="Ações do usuário"
                 >
-                  <MoreVertical size={16} />
+                  <Icon name="more-vertical" size={16} />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent side="bottom" align="end">
@@ -64,7 +64,7 @@ export function UsuarioCard({
 
         <div className={styles.footer}>
           <div className={styles.infoRow}>
-            <BookOpen size={14} className={styles.icon} />
+            <Icon name="book-open" size={14} className={styles.icon} />
             <span>
               {turmasInscritas === 1
                 ? 'Matriculado em 1 turma'

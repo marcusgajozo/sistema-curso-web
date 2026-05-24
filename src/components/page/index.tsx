@@ -1,6 +1,7 @@
-import { ArrowLeft } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router';
+
+import { Icon } from '@/components/icon';
 
 import styles from './styles/page.module.css';
 
@@ -30,7 +31,7 @@ function PageHeader({ title, hasBack }: PageHeaderProps) {
             onClick={() => void navigate(-1)}
             aria-label="Voltar"
           >
-            <ArrowLeft size={24} />
+            <Icon name="arrow-left" size={24} />
           </button>
         )}
         <h1 className={styles.title}>{title}</h1>

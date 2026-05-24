@@ -1,4 +1,3 @@
-import { Calendar, MoreVertical, Users } from 'lucide-react';
 import { useMemo } from 'react';
 import type z from 'zod';
 
@@ -9,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu';
+import { Icon } from '@/components/icon';
 import type { turmaSchema } from '@/services/api/turmas/schemas';
 import type { CardProps } from '@/types/card';
 import { getColor } from '@/util/get-color';
@@ -70,13 +70,13 @@ export function TurmaCard({
 
         <div className={styles.infoContainer}>
           <div className={styles.infoRow}>
-            <Calendar size={14} className={styles.icon} />
+            <Icon name="calendar" size={14} className={styles.icon} />
             <span>
               {formatData(data.dataInicio)} até {formatData(data.dataFim)}
             </span>
           </div>
           <div className={styles.infoRow}>
-            <Users size={14} className={styles.icon} />
+            <Icon name="users" size={14} className={styles.icon} />
             <span>
               {inscritos} {inscritos === 1 ? 'aluno' : 'alunos'} inscritos
             </span>
@@ -102,7 +102,7 @@ export function TurmaCard({
                     className={styles.actionButton}
                     aria-label="Ações da turma"
                   >
-                    <MoreVertical size={16} />
+                    <Icon name="more-vertical" size={16} />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side="top" align="end">

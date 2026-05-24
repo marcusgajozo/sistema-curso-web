@@ -1,7 +1,7 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type z from 'zod';
 
 import { Button } from '@/components/button';
+import { Icon } from '@/components/icon';
 import { useQueryParams } from '@/hooks/use-query-params';
 import type { metaSchema } from '@/services/api/schemas/api-schema';
 
@@ -38,7 +38,7 @@ export function Pagination({ meta, onPageChange }: PaginationProps) {
         disabled={!hasPreviousPage}
         className={styles.button}
       >
-        <ChevronLeft size={16} />
+        <Icon name="chevron-left" size={16} />
         Anterior
       </Button>
 
@@ -53,7 +53,7 @@ export function Pagination({ meta, onPageChange }: PaginationProps) {
         className={styles.button}
       >
         Próxima
-        <ChevronRight size={16} />
+        <Icon name="chevron-right" size={16} />
       </Button>
     </div>
   );
