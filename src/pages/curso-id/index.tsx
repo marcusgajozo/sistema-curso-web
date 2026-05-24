@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { ListTurmas } from '@/components/list-turmas';
 import { Page } from '@/components/page';
 import { SuspenseLoading } from '@/components/suspense-loading';
+import { cursoTemasMaped } from '@/constants/curso-temas-maped';
 import { useRequest } from '@/hooks/use-request';
 
 export function CursoId() {
@@ -36,7 +37,8 @@ export function CursoId() {
           </div>
           <div>
             <p>
-              <strong>Descição:</strong> {curso?.descricao}
+              <strong>Temas:</strong>{' '}
+              {curso?.temas.map((item) => cursoTemasMaped[item]).join(',')}
             </p>
           </div>
           <h3
