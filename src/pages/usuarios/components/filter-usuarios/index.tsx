@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
 import z from 'zod';
 
 import { Button } from '@/components/button';
@@ -15,8 +14,6 @@ const formSchema = z.object({
 
 export function FilterUsuarios() {
   const { queryParams, setQueryParams } = useQueryParams();
-
-  const navigate = useNavigate();
 
   const { handleSubmit, control, reset } = useForm({
     resolver: zodResolver(formSchema),
@@ -53,9 +50,7 @@ export function FilterUsuarios() {
         </div>
       </div>
       <div style={{ margin: '1rem 0', display: 'flex', justifyContent: 'end' }}>
-        <Button onClick={() => navigate(ROUTES.CREATE_USUARIO)}>
-          Cadastrar usuário
-        </Button>
+        <Button to={ROUTES.CREATE_USUARIO}>Cadastrar usuário</Button>
       </div>
     </form>
   );
