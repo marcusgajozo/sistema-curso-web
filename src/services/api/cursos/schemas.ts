@@ -36,4 +36,10 @@ export const createCurso = z.object({
 export const updateCurso = createCurso.partial();
 
 export const getCursosShema = createPaginatedResponseSchema(cursoSchema);
-export const getCursoSchema = createResponseSchema(cursoSchema);
+export const getCursoSchema = createResponseSchema(
+  cursoSchema.and(
+    z.object({
+      turmas: z.array(turmaSchema),
+    }),
+  ),
+);
