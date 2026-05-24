@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 
 import { MainLayout } from '@/layouts/main-layout';
+import { CursosDisponiveis } from '@/pages/cursos-disponiveis';
 import { GlobalError } from '@/pages/global-error';
 import { NotFound } from '@/pages/not-found';
 import { Painel } from '@/pages/painel';
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.PAINEL,
             Component: Painel,
+          },
+          {
+            path: ROUTES.CURSOS_DISPONIVEIS,
+            Component: CursosDisponiveis,
           },
           {
             path: 'teste',
