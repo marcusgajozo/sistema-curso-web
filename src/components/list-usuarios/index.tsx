@@ -6,13 +6,19 @@ import { UsuarioCard } from '@/components/usuario-card';
 import { ROUTES } from '@/routes/constants/routes-constants';
 import type { metaSchema } from '@/services/api/schemas/api-schema';
 import type { usuarioSchema } from '@/services/api/usuarios/schemas';
+import type { ActionOption } from '@/types/card';
 
 interface ListUsuariosProps {
   data?: z.output<typeof usuarioSchema>[];
   meta?: z.output<typeof metaSchema>['meta'];
+  listAction?: (usuario: z.output<typeof usuarioSchema>) => ActionOption[];
 }
 
-export function ListUsuarios({ data = [], meta }: ListUsuariosProps) {
+export function ListUsuarios({
+  data = [],
+  meta,
+  listAction,
+}: ListUsuariosProps) {
   const navigate = useNavigate();
   return (
     <GenericList
@@ -22,21 +28,27 @@ export function ListUsuarios({ data = [], meta }: ListUsuariosProps) {
       renderItem={(usuario) => (
         <UsuarioCard
           key={usuario.id}
-          usuario={usuario}
-          listAction={[
-            {
-              name: 'Mais informações',
-              function: () =>
-                navigate(
-                  generatePath(ROUTES.USUARIO_ID, { usuarioId: usuario.id }),
-                ),
-            },
-            {
-              name: 'Excluir',
-              function: () => alert(`Excluir ${usuario.nome}`),
-              destructive: true,
-            },
-          ]}
+          data={usuario}
+          listAction={
+            listAction
+              ? listAction(usuario)
+              : [
+                  {
+                    name: 'Mais informações',
+                    function: () =>
+                      navigate(
+                        generatePath(ROUTES.USUARIO_ID, {
+                          usuarioId: usuario.id,
+                        }),
+                      ),
+                  },
+                  {
+                    name: 'Excluir',
+                    function: () => alert(`Excluir ${usuario.nome}`),
+                    destructive: true,
+                  },
+                ]
+          }
         />
       )}
     />

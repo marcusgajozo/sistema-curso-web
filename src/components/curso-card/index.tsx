@@ -5,24 +5,24 @@ import type z from 'zod';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu';
 import type { cursoSchema } from '@/services/api/cursos/schemas';
+import type { CardProps } from '@/types/card';
 import { getColor } from '@/util/get-color';
 
 import styles from './styles/curso-card.module.css';
 
-interface CursoCardProps {
-  curso: z.output<typeof cursoSchema>;
-  listAction?: React.ReactNode;
-}
-
-export function CursoCard({ curso, listAction }: CursoCardProps) {
+export function CursoCard({
+  data,
+  listAction,
+}: CardProps<z.output<typeof cursoSchema>>) {
   const [imgError, setImgError] = useState(false);
-  const turmasAtivas = curso.turmaIds?.length || 0;
+  const turmasAtivas = data.turmaIds?.length || 0;
 
-  const showFallback = !curso.urlImagem || imgError;
-  const fallbackColor = getColor(curso.titulo);
+  const showFallback = !data.urlImagem || imgError;
+  const fallbackColor = getColor(data.titulo);
 
   return (
     <article className={styles.card}>
@@ -32,14 +32,12 @@ export function CursoCard({ curso, listAction }: CursoCardProps) {
             className={styles.fallbackImage}
             style={{ backgroundColor: fallbackColor }}
           >
-            <span className={styles.fallbackText}>
-              {curso.titulo.charAt(0)}
-            </span>
+            <span className={styles.fallbackText}>{data.titulo.charAt(0)}</span>
           </div>
         ) : (
           <img
-            src={curso.urlImagem}
-            alt={`Capa do curso ${curso.titulo}`}
+            src={data.urlImagem}
+            alt={`Capa do curso ${data.titulo}`}
             className={styles.image}
             onError={() => setImgError(true)}
             loading="lazy"
@@ -48,11 +46,11 @@ export function CursoCard({ curso, listAction }: CursoCardProps) {
       </div>
 
       <div className={styles.content}>
-        <h3 className={styles.title}>{curso.titulo}</h3>
-        <p className={styles.description}>{curso.descricao}</p>
+        <h3 className={styles.title}>{data.titulo}</h3>
+        <p className={styles.description}>{data.descricao}</p>
 
         <div className={styles.temasContainer}>
-          {curso.temas?.map((tema) => (
+          {data.temas?.map((tema) => (
             <span key={tema} className={styles.badge}>
               {tema}
             </span>
@@ -66,7 +64,7 @@ export function CursoCard({ curso, listAction }: CursoCardProps) {
               : `${turmasAtivas} turmas ativas`}
           </div>
 
-          {listAction && (
+          {listAction && listAction.length > 0 && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
@@ -77,7 +75,19 @@ export function CursoCard({ curso, listAction }: CursoCardProps) {
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent side="top" align="end">
-                {listAction}
+                {listAction.map((action, index) => (
+                  <DropdownMenuItem
+                    key={index}
+                    onClick={action.function}
+                    style={
+                      action.destructive
+                        ? { color: 'var(--danger)' }
+                        : undefined
+                    }
+                  >
+                    {action.name}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           )}

@@ -8,19 +8,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu';
 import type { usuarioSchema } from '@/services/api/usuarios/schemas';
+import type { CardProps } from '@/types/card';
 
 import styles from './styles/usuario-card.module.css';
-
-interface ActionOption {
-  name: string;
-  function: () => void;
-  destructive?: boolean;
-}
-
-interface UsuarioCardProps {
-  usuario: z.output<typeof usuarioSchema>;
-  listAction?: ActionOption[];
-}
 
 const colors = [
   '#ef4444',
@@ -45,15 +35,18 @@ function getColor(text: string) {
   return colors[Math.abs(hash) % colors.length];
 }
 
-export function UsuarioCard({ usuario, listAction }: UsuarioCardProps) {
-  const avatarColor = getColor(usuario.nome);
-  const turmasInscritas = usuario.turmasIds?.length || 0;
+export function UsuarioCard({
+  data,
+  listAction,
+}: CardProps<z.output<typeof usuarioSchema>>) {
+  const avatarColor = getColor(data.nome);
+  const turmasInscritas = data.turmasIds?.length || 0;
 
   return (
     <article className={styles.card}>
       <div className={styles.header}>
         <div className={styles.avatar} style={{ backgroundColor: avatarColor }}>
-          {usuario.nome.charAt(0).toUpperCase()}
+          {data.nome.charAt(0).toUpperCase()}
         </div>
 
         {listAction && listAction.length > 0 && (
@@ -88,8 +81,8 @@ export function UsuarioCard({ usuario, listAction }: UsuarioCardProps) {
       </div>
 
       <div className={styles.content}>
-        <h3 className={styles.name}>{usuario.nome}</h3>
-        <p className={styles.email}>{usuario.email}</p>
+        <h3 className={styles.name}>{data.nome}</h3>
+        <p className={styles.email}>{data.email}</p>
 
         <div className={styles.footer}>
           <div className={styles.infoRow}>

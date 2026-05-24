@@ -1,21 +1,19 @@
 import z from 'zod';
 
-import {
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from '@/components/dropdown-menu';
 import { GenericList } from '@/components/generic-list';
 import type { cursoSchema } from '@/services/api/cursos/schemas';
 import type { metaSchema } from '@/services/api/schemas/api-schema';
+import type { ActionOption } from '@/types/card';
 
 import { CursoCard } from '../curso-card';
 
 interface ListCursoProps {
   data?: z.output<typeof cursoSchema>[];
   meta?: z.output<typeof metaSchema>['meta'];
+  listAction?: (curso: z.output<typeof cursoSchema>) => ActionOption[];
 }
 
-export function ListCursos({ data = [], meta }: ListCursoProps) {
+export function ListCursos({ data = [], meta, listAction }: ListCursoProps) {
   return (
     <GenericList
       data={data}
@@ -24,25 +22,26 @@ export function ListCursos({ data = [], meta }: ListCursoProps) {
       renderItem={(curso) => (
         <CursoCard
           key={curso.id}
-          curso={curso}
+          data={curso}
           listAction={
-            <>
-              <DropdownMenuItem onClick={() => alert(`Editar ${curso.titulo}`)}>
-                Editar Curso
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => alert(`Gerenciar turmas de ${curso.titulo}`)}
-              >
-                Gerenciar Turmas
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => alert(`Excluir ${curso.titulo}`)}
-                style={{ color: 'var(--destructive)' }}
-              >
-                Excluir
-              </DropdownMenuItem>
-            </>
+            listAction
+              ? listAction(curso)
+              : [
+                  {
+                    name: 'Editar Curso',
+                    function: () => alert(`Editar ${curso.titulo}`),
+                  },
+                  {
+                    name: 'Gerenciar Turmas',
+                    function: () =>
+                      alert(`Gerenciar turmas de ${curso.titulo}`),
+                  },
+                  {
+                    name: 'Excluir',
+                    function: () => alert(`Excluir ${curso.titulo}`),
+                    destructive: true,
+                  },
+                ]
           }
         />
       )}

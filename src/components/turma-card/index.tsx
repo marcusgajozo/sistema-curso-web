@@ -8,25 +8,19 @@ import {
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu';
 import type { turmaSchema } from '@/services/api/turmas/schemas';
+import type { CardProps } from '@/types/card';
 import { getColor } from '@/util/get-color';
 
 import styles from './styles/turma-card.module.css';
 
-interface ActionOption {
-  name: string;
-  function: () => void;
-  destructive?: boolean;
-}
-
-interface TurmaCardProps {
-  turma: z.output<typeof turmaSchema>;
-  listAction?: ActionOption[];
-}
-
-export function TurmaCard({ turma, listAction }: TurmaCardProps) {
-  const fallbackColor = getColor(turma.titulo);
-  const inscritos = turma.usuariosIds?.length || 0;
-  const vagasRestantes = Math.max(0, turma.quantidadeVagas - inscritos);
+export function TurmaCard({
+  data,
+  listAction,
+  hiddenAction = false,
+}: CardProps<z.output<typeof turmaSchema>>) {
+  const fallbackColor = getColor(data.titulo);
+  const inscritos = data.usuariosIds?.length || 0;
+  const vagasRestantes = Math.max(0, data.quantidadeVagas - inscritos);
 
   const formatData = (isoDate: string) => {
     return new Date(isoDate).toLocaleDateString('pt-BR');
@@ -39,27 +33,27 @@ export function TurmaCard({ turma, listAction }: TurmaCardProps) {
           className={styles.fallbackImage}
           style={{ backgroundColor: fallbackColor }}
         >
-          <span className={styles.fallbackText}>{turma.titulo.charAt(0)}</span>
+          <span className={styles.fallbackText}>{data.titulo.charAt(0)}</span>
         </div>
       </div>
 
       <div className={styles.content}>
         <div className={styles.header}>
-          <h3 className={styles.title}>{turma.titulo}</h3>
+          <h3 className={styles.title}>{data.titulo}</h3>
           <span
-            className={`${styles.statusBadge} ${styles[turma.status.toLowerCase()]}`}
+            className={`${styles.statusBadge} ${styles[data.status.toLowerCase()]}`}
           >
-            {turma.status}
+            {data.status}
           </span>
         </div>
 
-        <p className={styles.description}>{turma.descricao}</p>
+        <p className={styles.description}>{data.descricao}</p>
 
         <div className={styles.infoContainer}>
           <div className={styles.infoRow}>
             <Calendar size={14} className={styles.icon} />
             <span>
-              {formatData(turma.dataInicio)} até {formatData(turma.dataFim)}
+              {formatData(data.dataInicio)} até {formatData(data.dataFim)}
             </span>
           </div>
           <div className={styles.infoRow}>
@@ -77,7 +71,7 @@ export function TurmaCard({ turma, listAction }: TurmaCardProps) {
               : `${vagasRestantes} vagas restantes`}
           </div>
 
-          {listAction && listAction.length > 0 && (
+          {!hiddenAction && listAction && listAction.length > 0 && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
