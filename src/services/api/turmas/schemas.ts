@@ -1,7 +1,10 @@
 import z from 'zod';
 
 import { turmaStatusConstant } from '../constants/turma-status';
-import { createPaginatedResponseSchema } from '../schemas/api-schema';
+import {
+  createPaginatedResponseSchema,
+  createResponseSchema,
+} from '../schemas/api-schema';
 
 export const turmaSchema = z.object({
   id: z.uuid(),
@@ -18,3 +21,4 @@ export const turmaSchema = z.object({
 });
 
 export const getTurmasSchema = createPaginatedResponseSchema(turmaSchema);
+export const getTurmaSchema = createResponseSchema(turmaSchema);
