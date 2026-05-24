@@ -1,13 +1,11 @@
 import { generatePath, useNavigate } from 'react-router';
 import z from 'zod';
 
-import { Pagination } from '@/components/pagination';
+import { GenericList } from '@/components/generic-list';
 import { UsuarioCard } from '@/components/usuario-card';
 import { ROUTES } from '@/routes/constants/routes-constants';
 import type { metaSchema } from '@/services/api/schemas/api-schema';
 import type { usuarioSchema } from '@/services/api/usuarios/schemas';
-
-import styles from './styles/list-usuarios.module.css';
 
 interface ListUsuariosProps {
   data?: z.output<typeof usuarioSchema>[];
@@ -17,37 +15,28 @@ interface ListUsuariosProps {
 export function ListUsuarios({ data = [], meta }: ListUsuariosProps) {
   const navigate = useNavigate();
   return (
-    <>
-      {data.length > 0 ? (
-        <>
-          <div className={styles.grid}>
-            {data?.map((usuario) => (
-              <UsuarioCard
-                key={usuario.id}
-                usuario={usuario}
-                listAction={[
-                  {
-                    name: 'Mais informações',
-                    function: () =>
-                      navigate(
-                        generatePath(ROUTES.USUARIO_ID, { id: usuario.id }),
-                      ),
-                  },
-                  {
-                    name: 'Excluir',
-                    function: () => alert(`Excluir ${usuario.nome}`),
-                    destructive: true,
-                  },
-                ]}
-              />
-            ))}
-          </div>
-
-          <Pagination meta={meta} />
-        </>
-      ) : (
-        <div className={styles.empty}>Nenhum usuário encontrado.</div>
+    <GenericList
+      data={data}
+      meta={meta}
+      emptyMessage="Nenhum usuário encontrado."
+      renderItem={(usuario) => (
+        <UsuarioCard
+          key={usuario.id}
+          usuario={usuario}
+          listAction={[
+            {
+              name: 'Mais informações',
+              function: () =>
+                navigate(generatePath(ROUTES.USUARIO_ID, { id: usuario.id })),
+            },
+            {
+              name: 'Excluir',
+              function: () => alert(`Excluir ${usuario.nome}`),
+              destructive: true,
+            },
+          ]}
+        />
       )}
-    </>
+    />
   );
 }
