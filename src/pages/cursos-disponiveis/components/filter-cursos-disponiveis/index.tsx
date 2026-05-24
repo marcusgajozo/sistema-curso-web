@@ -42,7 +42,7 @@ export function FilterCursosDisponiveis() {
     const newParams = new URLSearchParams();
 
     if (data.titulo) {
-      newParams.set('titulo', data.titulo);
+      newParams.set('titulo', data.titulo.trim());
     }
 
     if (data.temas && data.temas.length > 0) {
@@ -60,16 +60,20 @@ export function FilterCursosDisponiveis() {
   return (
     <form onSubmit={onSubmit}>
       <FormInput label="Título do curso" name="titulo" control={control} />
-      <FormCheckboxGroup
-        name="temas"
-        control={control}
-        label="Temas do Curso"
-        options={optionsCheckboxGroup}
-      />
-      <Button type="submit">Pesquisar</Button>
-      <Button type="button" variant="outline" onClick={onClear}>
-        Limpar campos
-      </Button>
+      <div style={{ display: 'flex', margin: '20px 0', alignItems: 'center' }}>
+        <FormCheckboxGroup
+          name="temas"
+          control={control}
+          label="Temas do Curso"
+          options={optionsCheckboxGroup}
+        />
+        <div style={{ display: 'flex', gap: 10 }}>
+          <Button type="button" variant="outline" onClick={onClear}>
+            Limpar filtro
+          </Button>
+          <Button type="submit">Pesquisar</Button>
+        </div>
+      </div>
     </form>
   );
 }

@@ -5,7 +5,7 @@ import { useRequest } from '@/hooks/use-request';
 export function useCursosDisponiveis() {
   const [searchParams] = useSearchParams();
 
-  const queryParams: Record<string, string> = {};
+  const queryParams: Record<string, string | number> = {};
 
   const titulo = searchParams.get('titulo');
 
@@ -17,6 +17,12 @@ export function useCursosDisponiveis() {
   if (temasStr) {
     queryParams.temas = temasStr;
   }
+
+  const page = searchParams.get('page');
+  const limit = searchParams.get('limit');
+
+  queryParams.page = page ? Number(page) : 1;
+  queryParams.limit = limit ? Number(limit) : 10;
 
   const {
     data: cursos,

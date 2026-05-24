@@ -31,7 +31,7 @@ export const menuItems: MenuItem[] = [
       {
         titulo: 'Turmas',
         icon: 'file-code',
-        url: ROUTES.CURSOS_DISPONIVEIS,
+        url: ROUTES.TURMAS,
       },
     ],
   },
