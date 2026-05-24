@@ -3,6 +3,7 @@
 !src
 !src/**/*
 !env.sh
+!.env*
 !index.html
 !nginx.conf
 !package.json
