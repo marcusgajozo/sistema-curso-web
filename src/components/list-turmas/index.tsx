@@ -33,7 +33,7 @@ export function ListTurmas({ data = [], meta }: ListTurmasProps) {
               name: 'Gerenciar turma',
               function: () =>
                 navigate(
-                  generatePath(ROUTES.GERENCIAR_TURMA, { id: turma.id }),
+                  generatePath(ROUTES.GERENCIAR_TURMA, { turmaId: turma.id }),
                 ),
             },
             {

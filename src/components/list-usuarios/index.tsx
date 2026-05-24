@@ -27,7 +27,9 @@ export function ListUsuarios({ data = [], meta }: ListUsuariosProps) {
             {
               name: 'Mais informações',
               function: () =>
-                navigate(generatePath(ROUTES.USUARIO_ID, { id: usuario.id })),
+                navigate(
+                  generatePath(ROUTES.USUARIO_ID, { usuarioId: usuario.id }),
+                ),
             },
             {
               name: 'Excluir',
