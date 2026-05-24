@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/button';
 import { FormInput } from '@/components/form-input';
-import inputStyles from '@/components/input/styles/input.module.css';
+import { FormSelect } from '@/components/form-select';
 import { Page } from '@/components/page';
 import { useRequest } from '@/hooks/use-request';
 import { turmaStatusConstant } from '@/services/api/constants/turma-status';
@@ -70,35 +70,21 @@ export function CreateTurma() {
             </div>
           </div>
 
-          <Controller
+          <FormSelect
             control={control}
             name="status"
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <div className={inputStyles.container}>
-                <label className={inputStyles.label}>Status</label>
-                <div className={inputStyles.inputWrapper}>
-                  <select
-                    className={inputStyles.input}
-                    value={(value as string) ?? ''}
-                    onChange={onChange}
-                    data-error={!!error}
-                  >
-                    <option value="" disabled>
-                      Selecione um status
-                    </option>
-                    <option value={turmaStatusConstant.DISPONIVEL}>
-                      Disponível
-                    </option>
-                    <option value={turmaStatusConstant.ENCERRADO}>
-                      Encerrado
-                    </option>
-                  </select>
-                </div>
-                {error && (
-                  <span className={inputStyles.error}>{error.message}</span>
-                )}
-              </div>
-            )}
+            label="Status"
+            placeholder="Selecione um status"
+            options={[
+              {
+                label: 'Disponível',
+                value: turmaStatusConstant.DISPONIVEL,
+              },
+              {
+                label: 'Encerrado',
+                value: turmaStatusConstant.ENCERRADO,
+              },
+            ]}
           />
 
           <div>
