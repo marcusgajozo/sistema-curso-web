@@ -1,0 +1,13 @@
+*
+
+!src
+!src/**/*
+!env.sh
+!index.html
+!nginx.conf
+!package.json
+!pnpm-lock.yaml
+!tsconfig.app.json
+!tsconfig.json
+!tsconfig.node.json
+!vite.config.ts
