@@ -4,7 +4,12 @@ import { apiRoutesCursos } from './cursos/api-routes-cursos';
 import { apiRoutesTurmas } from './turmas/api-routes-turmas';
 import { apiRoutesUsuarios } from './usuarios/api-routes-usuarios';
 
-export const routes = ['/cursos/disponiveis', '/usuarios', '/turmas'] as const;
+export const routes = [
+  '/cursos/disponiveis',
+  '/usuarios',
+  '/turmas',
+  '/usuarios/matricular',
+] as const;
 
 export type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 

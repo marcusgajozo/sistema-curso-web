@@ -1,14 +1,12 @@
+import { useState } from 'react';
 import z from 'zod';
 
-import {
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from '@/components/dropdown-menu';
 import { Pagination } from '@/components/pagination';
 import type { metaSchema } from '@/services/api/schemas/api-schema';
 import type { turmaSchema } from '@/services/api/turmas/schemas';
 
 import { TurmaCard } from '../turma-card';
+import { ModalGerenciarAlunos } from './components/modal-gerenciar-alunos';
 import styles from './styles/list-turmas.module.css';
 
 interface ListTurmasProps {
@@ -17,6 +15,10 @@ interface ListTurmasProps {
 }
 
 export function ListTurmas({ data = [], meta }: ListTurmasProps) {
+  const [turmaGerenciada, setTurmaGerenciada] = useState<z.output<
+    typeof turmaSchema
+  > | null>(null);
+
   return (
     <>
       {data.length > 0 ? (
@@ -26,29 +28,21 @@ export function ListTurmas({ data = [], meta }: ListTurmasProps) {
               <TurmaCard
                 key={turma.id}
                 turma={turma}
-                listAction={
-                  <>
-                    <DropdownMenuItem
-                      onClick={() => alert(`Editar ${turma.titulo}`)}
-                    >
-                      Editar Turma
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() =>
-                        alert(`Gerenciar alunos da turma ${turma.titulo}`)
-                      }
-                    >
-                      Gerenciar Alunos
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      onClick={() => alert(`Excluir ${turma.titulo}`)}
-                      style={{ color: 'var(--destructive)' }}
-                    >
-                      Excluir
-                    </DropdownMenuItem>
-                  </>
-                }
+                listAction={[
+                  {
+                    name: 'Editar Turma',
+                    function: () => alert(`Editar ${turma.titulo}`),
+                  },
+                  {
+                    name: 'Gerenciar Alunos',
+                    function: () => setTurmaGerenciada(turma),
+                  },
+                  {
+                    name: 'Excluir',
+                    function: () => alert(`Excluir ${turma.titulo}`),
+                    destructive: true,
+                  },
+                ]}
               />
             ))}
           </div>
@@ -58,6 +52,11 @@ export function ListTurmas({ data = [], meta }: ListTurmasProps) {
       ) : (
         <div className={styles.empty}>Nenhuma turma disponível no momento.</div>
       )}
+
+      <ModalGerenciarAlunos
+        turma={turmaGerenciada}
+        onClose={() => setTurmaGerenciada(null)}
+      />
     </>
   );
 }

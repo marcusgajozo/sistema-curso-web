@@ -1,12 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useSearchParams } from 'react-router';
 import z from 'zod';
 
 import { Button } from '@/components/button';
 import { FormCheckboxGroup } from '@/components/form-checkbox-group';
 import { FormInput } from '@/components/form-input';
 import { cursoTemasMaped } from '@/constants/curso-temas-maped';
+import { useQueryParams } from '@/hooks/use-query-params';
 import {
   type CursoTemas,
   cursoTemasConstant,
@@ -25,36 +25,30 @@ const optionsCheckboxGroup = Object.entries(cursoTemasMaped).map(
 );
 
 export function FilterCursosDisponiveis() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { queryParams, setQueryParams } = useQueryParams();
 
   const { handleSubmit, control, reset } = useForm({
     resolver: zodResolver(formSchema),
 
     values: {
-      titulo: searchParams.get('titulo') || '',
-      temas: searchParams.get('temas')
-        ? (searchParams.get('temas')?.split(',') as CursoTemas[])
+      titulo: (queryParams.titulo as string) || '',
+      temas: queryParams.temas
+        ? ((queryParams.temas as string).split(',') as CursoTemas[])
         : [],
     },
   });
 
   const onSubmit = handleSubmit((data) => {
-    const newParams = new URLSearchParams();
-
-    if (data.titulo) {
-      newParams.set('titulo', data.titulo.trim());
-    }
-
-    if (data.temas && data.temas.length > 0) {
-      newParams.set('temas', data.temas.join(','));
-    }
-
-    setSearchParams(newParams);
+    setQueryParams({
+      titulo: data.titulo?.trim() || null,
+      temas: data.temas && data.temas.length > 0 ? data.temas.join(',') : null,
+      page: 1,
+    });
   });
 
   const onClear = () => {
     reset({ titulo: '', temas: [] });
-    setSearchParams(new URLSearchParams());
+    setQueryParams({ titulo: null, temas: null, page: 1 });
   };
 
   return (

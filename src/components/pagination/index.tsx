@@ -1,18 +1,19 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useSearchParams } from 'react-router';
 import type z from 'zod';
 
 import { Button } from '@/components/button';
+import { useQueryParams } from '@/hooks/use-query-params';
 import type { metaSchema } from '@/services/api/schemas/api-schema';
 
 import styles from './styles.module.css';
 
 interface PaginationProps {
   meta?: z.output<typeof metaSchema>['meta'];
+  onPageChange?: (newPage: number) => void;
 }
 
-export function Pagination({ meta }: PaginationProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
+export function Pagination({ meta, onPageChange }: PaginationProps) {
+  const { setQueryParams } = useQueryParams();
 
   if (!meta || meta.totalPages <= 1) return null;
 
@@ -22,9 +23,11 @@ export function Pagination({ meta }: PaginationProps) {
   const hasNextPage = page < totalPages;
 
   const handlePageChange = (newPage: number) => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set('page', String(newPage));
-    setSearchParams(newParams);
+    if (onPageChange) {
+      onPageChange(newPage);
+    } else {
+      setQueryParams({ page: newPage });
+    }
   };
 
   return (

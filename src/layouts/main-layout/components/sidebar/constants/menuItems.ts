@@ -42,7 +42,7 @@ export const menuItems: MenuItem[] = [
       {
         titulo: 'Usuários',
         icon: 'file-code',
-        url: ROUTES.CURSOS_DISPONIVEIS,
+        url: ROUTES.USUARIOS,
       },
     ],
   },

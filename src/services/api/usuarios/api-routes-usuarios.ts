@@ -1,11 +1,25 @@
 import type { ApiRoutes } from '../api-routes';
-import { createUsuarioSchema } from './schemas';
+import {
+  createUsuarioSchema,
+  getUsuariosShema,
+  matricularUsuario,
+} from './schemas';
 
 export const apiRoutesUsuarios = {
   '/usuarios': {
     methods: {
       post: {
         formSchema: createUsuarioSchema,
+      },
+      get: {
+        responseSchema: getUsuariosShema,
+      },
+    },
+  },
+  '/usuarios/matricular': {
+    methods: {
+      post: {
+        formSchema: matricularUsuario,
       },
     },
   },

@@ -7,22 +7,14 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu';
-import { colors } from '@/constants/colors';
 import type { cursoSchema } from '@/services/api/cursos/schemas';
+import { getColor } from '@/util/get-color';
 
 import styles from './styles/curso-card.module.css';
 
 interface CursoCardProps {
   curso: z.output<typeof cursoSchema>;
   listAction?: React.ReactNode;
-}
-
-function getColor(text: string) {
-  let hash = 0;
-  for (let i = 0; i < text.length; i++) {
-    hash = text.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return colors[Math.abs(hash) % colors.length];
 }
 
 export function CursoCard({ curso, listAction }: CursoCardProps) {

@@ -7,6 +7,7 @@ import { GlobalError } from '@/pages/global-error';
 import { NotFound } from '@/pages/not-found';
 import { Painel } from '@/pages/painel';
 import { Turmas } from '@/pages/turmas';
+import { Usuarios } from '@/pages/usuarios';
 
 import { ROUTES } from './constants/routes-constants';
 
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.TURMAS,
             Component: Turmas,
+          },
+          {
+            path: ROUTES.USUARIOS,
+            Component: Usuarios,
           },
         ],
       },

@@ -4,24 +4,23 @@ import type z from 'zod';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu';
-import { colors } from '@/constants/colors';
 import type { turmaSchema } from '@/services/api/turmas/schemas';
+import { getColor } from '@/util/get-color';
 
 import styles from './styles/turma-card.module.css';
 
-interface TurmaCardProps {
-  turma: z.output<typeof turmaSchema>;
-  listAction?: React.ReactNode;
+interface ActionOption {
+  name: string;
+  function: () => void;
+  destructive?: boolean;
 }
 
-function getColor(text: string) {
-  let hash = 0;
-  for (let i = 0; i < text.length; i++) {
-    hash = text.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return colors[Math.abs(hash) % colors.length];
+interface TurmaCardProps {
+  turma: z.output<typeof turmaSchema>;
+  listAction?: ActionOption[];
 }
 
 export function TurmaCard({ turma, listAction }: TurmaCardProps) {
@@ -78,7 +77,7 @@ export function TurmaCard({ turma, listAction }: TurmaCardProps) {
               : `${vagasRestantes} vagas restantes`}
           </div>
 
-          {listAction && (
+          {listAction && listAction.length > 0 && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
@@ -89,7 +88,19 @@ export function TurmaCard({ turma, listAction }: TurmaCardProps) {
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent side="top" align="end">
-                {listAction}
+                {listAction.map((action, index) => (
+                  <DropdownMenuItem
+                    key={index}
+                    onClick={action.function}
+                    style={
+                      action.destructive
+                        ? { color: 'var(--danger)' }
+                        : undefined
+                    }
+                  >
+                    {action.name}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           )}
