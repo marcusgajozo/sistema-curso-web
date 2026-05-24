@@ -5,4 +5,5 @@ export const ROUTES = {
   TURMAS: '/turmas',
   USUARIOS: '/usuarios',
   USUARIO_ID: '/usuarios/:id',
+  GERENCIAR_TURMA: '/gerenciar-turma/:id',
 } as const;

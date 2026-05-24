@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { generatePath, useNavigate } from 'react-router';
 import z from 'zod';
 
 import { Pagination } from '@/components/pagination';
+import { ROUTES } from '@/routes/constants/routes-constants';
 import type { metaSchema } from '@/services/api/schemas/api-schema';
 import type { turmaSchema } from '@/services/api/turmas/schemas';
 
 import { TurmaCard } from '../turma-card';
-import { ModalGerenciarAlunos } from './components/modal-gerenciar-alunos';
 import styles from './styles/list-turmas.module.css';
 
 interface ListTurmasProps {
@@ -15,10 +15,7 @@ interface ListTurmasProps {
 }
 
 export function ListTurmas({ data = [], meta }: ListTurmasProps) {
-  const [turmaGerenciada, setTurmaGerenciada] = useState<z.output<
-    typeof turmaSchema
-  > | null>(null);
-
+  const navigate = useNavigate();
   return (
     <>
       {data.length > 0 ? (
@@ -34,8 +31,11 @@ export function ListTurmas({ data = [], meta }: ListTurmasProps) {
                     function: () => alert(`Editar ${turma.titulo}`),
                   },
                   {
-                    name: 'Gerenciar Alunos',
-                    function: () => setTurmaGerenciada(turma),
+                    name: 'Gerenciar turma',
+                    function: () =>
+                      navigate(
+                        generatePath(ROUTES.GERENCIAR_TURMA, { id: turma.id }),
+                      ),
                   },
                   {
                     name: 'Excluir',
@@ -52,11 +52,6 @@ export function ListTurmas({ data = [], meta }: ListTurmasProps) {
       ) : (
         <div className={styles.empty}>Nenhuma turma disponível no momento.</div>
       )}
-
-      <ModalGerenciarAlunos
-        turma={turmaGerenciada}
-        onClose={() => setTurmaGerenciada(null)}
-      />
     </>
   );
 }

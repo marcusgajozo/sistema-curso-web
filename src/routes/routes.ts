@@ -4,6 +4,7 @@ import { MainLayout } from '@/layouts/main-layout';
 import { CreateUsuario } from '@/pages/create-usuario';
 import { CursosDisponiveis } from '@/pages/cursos-disponiveis';
 import { Dashboard } from '@/pages/dashboard';
+import { GerenciarTurma } from '@/pages/gerenciar-turma';
 import { GlobalError } from '@/pages/global-error';
 import { NotFound } from '@/pages/not-found';
 import { Turmas } from '@/pages/turmas';
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.USUARIO_ID,
             Component: UsuarioId,
+          },
+          {
+            path: ROUTES.GERENCIAR_TURMA,
+            Component: GerenciarTurma,
           },
         ],
       },
