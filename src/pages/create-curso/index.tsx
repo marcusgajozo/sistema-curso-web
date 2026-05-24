@@ -36,7 +36,7 @@ export function CreateCurso() {
   return (
     <Page.Root>
       <Page.Content>
-        <Page.Header title="Cadastrar Curso" />
+        <Page.Header title="Cadastrar Curso" hasBack />
         <form
           onSubmit={onSubmit}
           style={{ display: 'flex', flexDirection: 'column', gap: 20 }}

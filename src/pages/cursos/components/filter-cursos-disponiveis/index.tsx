@@ -7,6 +7,7 @@ import { FormCheckboxGroup } from '@/components/form-checkbox-group';
 import { FormInput } from '@/components/form-input';
 import { cursoTemasMaped } from '@/constants/curso-temas-maped';
 import { useQueryParams } from '@/hooks/use-query-params';
+import { ROUTES } from '@/routes/constants/routes-constants';
 import {
   type CursoTemas,
   cursoTemasConstant,
@@ -67,6 +68,9 @@ export function FilterCursosDisponiveis() {
           </Button>
           <Button type="submit">Pesquisar</Button>
         </div>
+      </div>
+      <div style={{ display: 'flex', margin: '20px 0', justifyContent: 'end' }}>
+        <Button to={ROUTES.CREATE_CURSO}>Cadastrar Curso</Button>
       </div>
     </form>
   );
