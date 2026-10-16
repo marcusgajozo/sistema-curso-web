@@ -1,8 +1,51 @@
-# Estrutura do Projeto e Arquitetura
+# Sistema Curso Web
+
+Interface web do sistema de gestão de cursos, turmas e matrículas. Consome a API REST do [api-course-system](https://github.com/marcusgajozo/api-course-system) e tem telas de dashboard, listagem e cadastro de cursos, turmas e usuários.
+
+## Stack
+
+- React com TypeScript e Vite
+- React Router nas rotas
+- TanStack Query no estado de servidor
+- react-hook-form na validação de formulário
+- Axios como cliente HTTP, com a URL base vinda de `VITE_API_BASE_URL`
+- Docker com build em múltiplos estágios e Nginx
+
+## Como rodar em desenvolvimento
+
+```bash
+npm install
+cp .env.example .env      # aponte VITE_API_BASE_URL para a API rodando
+npm run dev
+```
+
+## Como rodar em produção, localmente
+
+1. Copie o arquivo de exemplo de produção para criar o `.env`:
+
+   ```bash
+   cp .env.prd .env
+   ```
+
+2. Suba os contêineres. O build usa o Dockerfile multi-stage configurado com Nginx:
+
+   ```bash
+   docker-compose up -d --build
+   ```
+
+3. A aplicação fica em [http://localhost:8080](http://localhost:8080).
+
+## Projeto relacionado
+
+- API: [api-course-system](https://github.com/marcusgajozo/api-course-system)
+
+---
+
+## Estrutura do projeto e arquitetura
 
 Este documento descreve a organização de pastas e as decisões arquiteturais adotadas neste projeto, visando escalabilidade, separação de responsabilidades e facilidade de manutenção.
 
-## 🏗️ Arquitetura _Feature-First_ (Orientada a Features)
+### Arquitetura feature-first (orientada a features)
 
 O projeto adota uma abordagem híbrida com fortes inspirações no **Feature-First** (ou _Feature-Sliced Design_). A ideia principal é agrupar arquivos pela sua funcionalidade de negócio (Feature/Page) quando são exclusivos de uma única tela.
 
@@ -10,13 +53,11 @@ No entanto, essa arquitetura foi aplicada de forma **parcial e pragmática**. Em
 
 Vantagens:
 
-- **Alta Coesão:** Tudo o que uma tela precisa para funcionar (hooks, componentes internos, tipagens) fica dentro da pasta daquela tela. Se você for dar manutenção na tela de "Cursos Disponíveis", você não precisa pular por 5 diretórios globais diferentes; tudo está lá dentro.
-- **Isolamento:** Componentes específicos de uma tela (ex: `FilterCursosDisponiveis`) não "poluem" a pasta de componentes globais UI, pois dificilmente farão sentido em outras telas do sistema.
-- **Escalabilidade:** Novas features podem ser adicionadas sem inchar as pastas raízes do projeto.
+- **Alta coesão:** tudo o que uma tela precisa para funcionar (hooks, componentes internos, tipagens) fica dentro da pasta daquela tela. Para dar manutenção na tela de "Cursos Disponíveis", você não precisa pular por cinco diretórios globais diferentes.
+- **Isolamento:** componentes específicos de uma tela, como `FilterCursosDisponiveis`, não poluem a pasta de componentes globais, pois dificilmente fariam sentido em outras telas.
+- **Escalabilidade:** novas features podem ser adicionadas sem inchar as pastas raiz do projeto.
 
----
-
-## 📂 Visão Geral dos Diretórios (`src/`)
+### Visão geral dos diretórios
 
 ```
 src/
@@ -38,20 +79,13 @@ src/
 └── util/         # Funções utilitárias puras (ex: get-color).
 ```
 
----
+### Biblioteca customizada: use-request
 
-## 🚀 Biblioteca Customizada: `use-request`
+Destaque para o hook `use-request`, em `src/hooks/use-request.ts`.
 
-Destaque especial para o hook `use-request` localizado na pasta `src/hooks/use-request.ts`.
+Esse hook virou um projeto próprio: está publicado no npm como [typed-route-client](https://www.npmjs.com/package/typed-route-client), com o código em [marcusgajozo/typed-route-client](https://github.com/marcusgajozo/typed-route-client). O repositório está arquivado e sem manutenção ativa, mas o hook continua em uso aqui.
 
-Esse hook é um projeto pessoal em andamento e contínua evolução, baseado na biblioteca experimental em desenvolvimento:
-🔗 **[react-hook-use-request](https://github.com/marcusgajozo/react-hook-use-request)**
-
-### O que ele busca resolver?
-
-O objetivo dessa abstração (que ainda está sendo testada e iterada no mundo real através deste projeto) é envelopar a complexidade das requisições HTTP e sua integração com o React Query / TanStack Query. A ideia é fornecer uma interface limpa para os componentes visuais consumirem os dados.
-
-Em vez de cada componente de tela lidar manualmente com as configurações do React Query ou de endpoints específicos na mão, eles apenas declaram um contrato limpo:
+O objetivo da abstração é envolver a complexidade das requisições HTTP e a integração com o React Query. Em vez de cada componente de tela lidar com as configurações do React Query ou com endpoints na mão, ele declara um contrato:
 
 ```tsx
 const { data, isLoading } = useRequest({
@@ -62,27 +96,4 @@ const { data, isLoading } = useRequest({
 });
 ```
 
-A presença desse hook reforça a separação de responsabilidades (Clean Code) e ajuda as camadas visuais (Pages) a não misturarem código imperativo de requisição com renderização do React.
-
----
-
-## ⚙️ Como Rodar o Projeto (Produção)
-
-Para executar a aplicação em um ambiente de produção local utilizando os contêineres Docker já configurados, siga os passos abaixo:
-
-1. **Configurar as Variáveis de Ambiente:**
-   Copie o arquivo de exemplo de produção para criar o seu arquivo `.env` real na raiz do projeto:
-
-   ```bash
-   cp env.prd .env
-   ```
-
-2. **Subir os Contêineres:**
-   Utilize o Docker Compose para realizar o build (usando o Dockerfile multi-stage configurado com Nginx) e iniciar a aplicação em segundo plano:
-
-   ```bash
-   docker-compose up -d --build
-   ```
-
-3. **Acessar a Aplicação:**
-   A aplicação estará disponível no seu navegador no endereço: [http://localhost:8080](http://localhost:8080)
+A presença desse hook reforça a separação de responsabilidades e ajuda as camadas visuais a não misturarem código imperativo de requisição com a renderização do React.
